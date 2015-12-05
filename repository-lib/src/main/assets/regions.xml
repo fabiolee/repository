@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<location>
+    
+    <region>
+        <name>Nationwide</name>
+        <value>MY</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00321,M00342</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00299,M00341,M00353,M00354</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00346,M00356,M00355,M00357</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list>M00337,M00339,M00347</merchant-list>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Johor</name>
+        <value>MY-01</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00342</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00299,M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Kedah</name>
+        <value>MY-02</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Kelantan</name>
+        <value>MY-03</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Melaka</name>
+        <value>MY-04</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00342</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346,M00349</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Negeri Sembilan</name>
+        <value>MY-05</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Pahang</name>
+        <value>MY-06</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Pulau Pinang</name>
+        <value>MY-07</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00342</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346,M00349</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Perak</name>
+        <value>MY-08</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list>M00327</merchant-list>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Perlis</name>
+        <value>MY-09</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+
+    <region>
+        <name>Selangor</name>
+        <value>MY-10</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00352</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00299,M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346,M00349,M00358</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Terengganu</name>
+        <value>MY-11</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00346</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Sabah</name>
+        <value>MY-12</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00346,M00349</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Sarawak</name>
+        <value>MY-13</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00334,M00341</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Wilayah Persekutuan Kuala Lumpur</name>
+        <value>MY-14</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00335,M00342,M00350,M00352</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00299,M00334,M00341,M00345</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00340,M00349</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list>M00283</merchant-list>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Wilayah Persekutuan Labuan</name>
+        <value>MY-15</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+    <region>
+        <name>Wilayah Persekutuan Putrajaya</name>
+        <value>MY-16</value>
+        <category-list>
+            <category>
+                <cat-name>Food &amp; Beverages</cat-name>
+                <cat-value>D10001</cat-value>
+                <merchant-list>M00335</merchant-list>
+            </category>
+            <category>
+                <cat-name>Health and Beauty</cat-name>
+                <cat-value>H10002</cat-value>
+                <merchant-list>M00299</merchant-list>
+            </category>
+            <category>
+                <cat-name>Shopping &amp; Retail</cat-name>
+                <cat-value>S10003</cat-value>
+                <merchant-list>M00305,M00303,M00302,M00346</merchant-list>
+            </category>
+            <category>
+                <cat-name>Travel &amp; Leisure</cat-name>
+                <cat-value>T10004</cat-value>
+                <merchant-list/>
+            </category>
+            <category>
+                <cat-name>Others</cat-name>
+                <cat-value>V10006</cat-value>
+                <merchant-list/>
+            </category>
+        </category-list>
+    </region>
+</location>
