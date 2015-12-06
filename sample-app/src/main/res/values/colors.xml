@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="grey_background_main_logolist">#1C1C1C</color>
+    <color name="white">@android:color/white</color>
+    <color name="white_background_screen">#F5F5F5</color>
+    <color name="yellow_logo">#FFDE00</color>
 </resources>

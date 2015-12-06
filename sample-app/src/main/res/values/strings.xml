@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">repository</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Message -->
+    <string name="msg_layout_notfound">Layout not found.</string>
 </resources>

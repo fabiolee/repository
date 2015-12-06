@@ -89,7 +89,7 @@ public class NetworkAdapter {
                 HttpResponse response = mHttpClient.execute(get);
                 final int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode != HttpStatus.SC_OK) {
-                    Log.e(LOG_TAG, "Error " + statusCode + " while retrieving HttpGet Bitmap from " + url);
+                    Log.e(LOG_TAG, "Error [" + statusCode + "] while retrieving HttpGet Bitmap from " + url);
                     return null;
                 }
 
@@ -107,8 +107,7 @@ public class NetworkAdapter {
                                 os.close();
                             }
                         }
-                        Bitmap bitmap = Util.decodeFile(file);
-                        return bitmap;
+                        return Util.decodeFile(file);
                     } finally {
                         if (is != null) {
                             is.close();
@@ -138,7 +137,12 @@ public class NetworkAdapter {
 
             try {
                 HttpResponse resp = mHttpClient.execute(get);
-                resXml = EntityUtils.toString(resp.getEntity());
+                int statusCode = resp.getStatusLine().getStatusCode();
+                if (statusCode == HttpStatus.SC_OK) {
+                    resXml = EntityUtils.toString(resp.getEntity());
+                } else {
+                    Log.e(LOG_TAG, "Error [" + statusCode + "] while retrieving HttpGet String from " + url + ", reqString = " + reqString);
+                }
             } catch (Exception e) {
                 get.abort();
                 Log.e(LOG_TAG, "Error [" + e.getMessage() + "] while retrieving HttpGet String from " + url + ", reqString = " + reqString);
@@ -162,7 +166,12 @@ public class NetworkAdapter {
 
             try {
                 HttpResponse resp = mHttpClient.execute(post);
-                resXml = EntityUtils.toString(resp.getEntity());
+                int statusCode = resp.getStatusLine().getStatusCode();
+                if (statusCode == HttpStatus.SC_OK) {
+                    resXml = EntityUtils.toString(resp.getEntity());
+                } else {
+                    Log.e(LOG_TAG, "Error [" + statusCode + "] while retrieving HttpPost String from " + url + ", reqXml = " + reqXml);
+                }
             } catch (Exception e) {
                 post.abort();
                 Log.e(LOG_TAG, "Error [" + e.getMessage() + "] while retrieving HttpPost String from " + url + ", reqXml = " + reqXml);

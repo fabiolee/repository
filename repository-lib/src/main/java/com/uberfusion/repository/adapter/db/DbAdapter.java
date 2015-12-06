@@ -84,7 +84,7 @@ public class DbAdapter {
 
                 Object[] bindArgs = new Object[] { module, xmlData, className, date };
 
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 sb.append("INSERT INTO " + Constant.Database.TABLE_CACHE + " (");
                 sb.append(Constant.Key.ROWID);
                 sb.append(", " + Constant.Key.MODULE);
@@ -93,6 +93,8 @@ public class DbAdapter {
                 sb.append(", " + Constant.Key.DATE);
                 sb.append(") VALUES (NULL, ?, ?, ?, ?);");
                 db.execSQL(sb.toString(), bindArgs);
+
+                Log.d(LOG_TAG, "insertCache(db=[" + db + "], module=[" + module + "], xmlFileName=[" + xmlFileName + "], className=[" + className + "])");
             } catch (IOException e) {
                 Log.e(LOG_TAG, e.getMessage());
             }
