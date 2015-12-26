@@ -8,8 +8,8 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 public class MemoryCache {
-    private HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<String, SoftReference<Bitmap>>();
-    private HashMap<String, BaseObject> xmlCache = new HashMap<String, BaseObject>();
+    private HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<>();
+    private HashMap<String, BaseObject> xmlCache = new HashMap<>();
 
     public boolean containsXml(String id) {
         return xmlCache.containsKey(id);
@@ -26,8 +26,16 @@ public class MemoryCache {
         return xmlCache.get(id);
     }
 
+    public boolean isEmptyImage() {
+        return imageCache.isEmpty();
+    }
+
+    public boolean isEmptyXml() {
+        return xmlCache.isEmpty();
+    }
+
     public void setImage(String id, Bitmap bitmap) {
-        imageCache.put(id, new SoftReference<Bitmap>(bitmap));
+        imageCache.put(id, new SoftReference<>(bitmap));
     }
 
     public void setXml(String id, BaseObject xmlObject) {

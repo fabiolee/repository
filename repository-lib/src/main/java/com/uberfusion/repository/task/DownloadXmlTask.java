@@ -1,6 +1,5 @@
 package com.uberfusion.repository.task;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -8,13 +7,11 @@ import android.os.Message;
 import com.uberfusion.repository.adapter.network.NetworkAdapter;
 
 public class DownloadXmlTask extends AsyncTask<String, Void, String[]> {
-	private Activity mActivity;
 	private Handler mHandler;
 	private NetworkAdapter mNetwork;
 
-	public DownloadXmlTask(Activity activity, Handler handler, NetworkAdapter network) {
+	public DownloadXmlTask(Handler handler, NetworkAdapter network) {
 		super();
-		mActivity = activity;
 		mHandler = handler;
 		mNetwork = network;
 	}

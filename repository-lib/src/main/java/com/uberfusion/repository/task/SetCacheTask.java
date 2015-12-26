@@ -10,14 +10,14 @@ import com.uberfusion.repository.adapter.cache.CacheLoader;
 import com.uberfusion.repository.object.xml.BaseObject;
 import com.uberfusion.repository.util.Util;
 
-public class CacheTask extends AsyncTask<String[], Void, BaseObject[]> {
+public class SetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     private final String LOG_TAG = getClass().getSimpleName();
 
     private Context mContext;
     private CacheLoader mCache;
     private Handler mHandler;
 
-    public CacheTask(Context context, CacheLoader cache, Handler handler) {
+    public SetCacheTask(Context context, CacheLoader cache, Handler handler) {
         super();
         mContext = context;
         mCache = cache;
@@ -28,9 +28,9 @@ public class CacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     protected BaseObject[] doInBackground(String[]... param) {
         BaseObject[] result = new BaseObject[param.length];
         for (int i = 0; i < param.length; i++) {
-            if (param[i] == null) {
+            if ((param[i] == null) || (param[i].length != 3)) {
                 result[i] = null;
-            } else if (param[i].length == 3) {
+            } else {
                 // Set Xml, paramLength = 3
                 try {
                     result[i] = mCache.setXml(param[i][0], param[i][1], (Class<? extends BaseObject>) Class.forName(param[i][2]));
@@ -40,9 +40,6 @@ public class CacheTask extends AsyncTask<String[], Void, BaseObject[]> {
                     Util.showErrorNotification(mContext, errorMessage);
                     throw new AssertionError(e);
                 }
-            } else {
-                // Get Xml, paramLength = 1
-                result[i] = mCache.getXml(param[i][0]);
             }
         }
         return result;

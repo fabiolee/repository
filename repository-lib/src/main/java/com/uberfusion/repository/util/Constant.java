@@ -100,11 +100,6 @@ public final class Constant {
         public static final String PHONEINSURANCE = "PhonesInsurance";
         public static final String LATITUDE = "latitude";
         public static final String LONGITUDE = "longitude";
-        public static final String APPS = "apps";
-        public static final String APP = "app";
-        public static final String LABEL = "label";
-        public static final String DESC = "desc";
-        public static final String HREFANDROID = "href_android";
         public static final String ROWID = "_id";
         public static final String MODULE = "module";
         public static final String DATE = "date";
@@ -135,7 +130,6 @@ public final class Constant {
         public static final String XML_REGION = BASEXML + "/cs/site_template/ecommerce/xml/privileges/regions.xml";
         public static final String XML_MERCHANT = BASEXML + "/cs/site_template/ecommerce/xml/privileges/merchants.xml";
         public static final String XML_LOCATOR = BASEXML + "/cs/site_template/ecommerce/xml/locator.xml";
-        public static final String XML_APP = BASE + "/shared/ocs-moba-xml/app/app.xml";
     }
 
     /**

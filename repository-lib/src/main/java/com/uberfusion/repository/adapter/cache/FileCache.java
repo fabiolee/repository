@@ -1,6 +1,7 @@
 package com.uberfusion.repository.adapter.cache;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import com.uberfusion.repository.util.Constant;
 import com.uberfusion.repository.util.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,18 +40,13 @@ public class FileCache {
             cacheDir.mkdirs();
     }
 
-    public FileCache(Context context) {
-        this(context, null);
-    }
-
     public File getFile(String url) {
         // I identify images by hashcode. Not a perfect solution, good for the
         // demo.
         String filename = String.valueOf(url.hashCode());
         // Another possible solution (thanks to grantland)
         // String filename = URLEncoder.encode(url);
-        File f = new File(cacheDir, filename);
-        return f;
+        return new File(cacheDir, filename);
     }
 
     public BaseObject getXml(String id) {
@@ -112,6 +109,25 @@ public class FileCache {
         }
 
         return xmlObject;
+    }
+
+    public void setDefaultXml(String module, String className, String fileName) {
+        try {
+            AssetManager mAssetManager = mContext.getAssets();
+            String xmlData = Util.outputStream(mAssetManager.open(fileName));
+
+            DbCache dbObject = new DbCache(module, xmlData, className);
+            mDb.open();
+            mDb.insert(Constant.Database.TABLE_CACHE, dbObject.toParams());
+
+            Log.d(LOG_TAG, "setDefaultXml(module=[" + module + "], className=[" + className + "], fileName=[" + fileName + "])");
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
     }
 
     public void setXml(DbCache dbObject) {

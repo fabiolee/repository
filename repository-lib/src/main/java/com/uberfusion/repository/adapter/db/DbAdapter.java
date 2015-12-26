@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.uberfusion.repository.object.xml.app.Apps;
 import com.uberfusion.repository.object.xml.banner.Banner;
 import com.uberfusion.repository.object.xml.reward.PrivilegeLocation;
 import com.uberfusion.repository.object.xml.reward.PrivilegePartner;
@@ -52,7 +51,6 @@ public class DbAdapter {
             this.insertCache(db, Constant.Url.XML_REGION, "regions.xml", PrivilegeLocation.class.getName());
             this.insertCache(db, Constant.Url.XML_MERCHANT, "merchants.xml", PrivilegePartner.class.getName());
             this.insertCache(db, Constant.Url.XML_LOCATOR, "locator.xml", StoreLocator.class.getName());
-            this.insertCache(db, Constant.Url.XML_APP, "app.xml", Apps.class.getName());
 
             sb = new StringBuffer();
             sb.append("create table " + Constant.Database.TABLE_ERRORLOG + " (");

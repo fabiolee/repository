@@ -1,7 +1,7 @@
-package com.uberfusion.repository.object.xml.app;
+package com.uberfusion.repository.sample.object.xml.app;
 
 import com.uberfusion.repository.object.xml.BaseObject;
-import com.uberfusion.repository.util.Constant;
+import com.uberfusion.repository.sample.util.Constant;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;

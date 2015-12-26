@@ -1,6 +1,7 @@
 package com.uberfusion.repository.adapter.cache;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
@@ -21,17 +22,15 @@ import java.util.concurrent.Executors;
 public class CacheLoader {
     private final int defaultId = R.color.transparent;
 
-    private Activity mActivity;
     private ExecutorService executorService;
     private FileCache fileCache;
     private Map<ImageView, String> imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     private MemoryCache memoryCache = new MemoryCache();
     private NetworkAdapter mNetwork;
 
-    public CacheLoader(Activity activity, DbAdapter db, NetworkAdapter network) {
-        mActivity = activity;
+    public CacheLoader(Context context, DbAdapter db, NetworkAdapter network) {
         executorService = Executors.newFixedThreadPool(5);
-        fileCache = new FileCache(activity, db);
+        fileCache = new FileCache(context, db);
         mNetwork = network;
     }
 
@@ -47,13 +46,30 @@ public class CacheLoader {
         return memoryCache.containsXml(id);
     }
 
-    public BaseObject getXml(String id) {
+    public BaseObject getXml(String id, String className, String fileName) {
         BaseObject xmlObject = memoryCache.getXml(id);
         if (xmlObject == null) {
             xmlObject = fileCache.getXml(id);
-            memoryCache.setXml(id, xmlObject);
+
+            if (xmlObject == null) {
+                // Set default xml.
+                fileCache.setDefaultXml(id, className, fileName);
+                xmlObject = fileCache.getXml(id);
+            }
+
+            if (xmlObject != null) {
+                memoryCache.setXml(id, xmlObject);
+            }
         }
         return xmlObject;
+    }
+
+    public boolean isEmptyImage() {
+        return memoryCache.isEmptyImage();
+    }
+
+    public boolean isEmptyXml() {
+        return memoryCache.isEmptyXml();
     }
 
     public void setImage(String url, ImageView imageView) {
@@ -129,9 +145,7 @@ public class CacheLoader {
 
     boolean imageViewReused(PhotoToLoad photoToLoad) {
         String tag = imageViews.get(photoToLoad.imageView);
-        if (tag == null || !tag.equals(photoToLoad.url))
-            return true;
-        return false;
+        return (tag == null || !tag.equals(photoToLoad.url));
     }
 
     // Used to display bitmap in the UI thread
