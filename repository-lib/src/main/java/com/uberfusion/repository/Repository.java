@@ -108,6 +108,42 @@ public final class Repository {
     }
 
     /**
+     * This instance is equal to all instances of {@link Repository} that have equal attribute values.
+     * @return {@code true} if {@code this} is equal to {@code another} instance
+     */
+    @Override
+    public boolean equals(Object another) {
+        return (this == another) ||
+                (another instanceof Repository && this.equalTo((Repository) another));
+    }
+
+    private boolean equalTo(Repository another) {
+        return mContext.equals(another.mContext);
+    }
+
+    /**
+     * Computes a hash code from attributes: {@link Context}.
+     * @return hashCode value
+     */
+    @Override
+    public int hashCode() {
+        int h = 31;
+        h = h * 17 + mContext.hashCode();
+        return h;
+    }
+
+    /**
+     * Prints the immutable value {@link Repository} with all non-generated and non-auxiliary attribute values.
+     * @return A string representation of the value
+     */
+    @Override
+    public String toString() {
+        return "Repository{"
+                + "context=" + mContext
+                + "}";
+    }
+
+    /**
      * The global default {@link Repository} instance.
      */
     public static Repository with(Context context) {
@@ -121,23 +157,29 @@ public final class Repository {
         return singleton;
     }
 
-    public static final class Builder {
+    /**
+     * Builds instances of type {@link Repository}.
+     * Initialize attributes and then invoke the {@link #build()} method to create an immutable instance.
+     */
+    private static final class Builder {
         private final Context context;
 
         /**
          * Start building a new {@link Repository} instance.
          */
-        public Builder(Context context) {
+        private Builder(Context context) {
             if (context == null) {
                 throw new IllegalArgumentException("Context must not be null.");
             }
             this.context = context.getApplicationContext();
         }
 
-        /** Create the {@link Repository} instance. */
-        public Repository build() {
+        /**
+         * Create the {@link Repository} instance.
+         * @return An immutable instance of {@link Repository}
+         */
+        private Repository build() {
             Context context = this.context;
-
             return new Repository(context);
         }
     }
