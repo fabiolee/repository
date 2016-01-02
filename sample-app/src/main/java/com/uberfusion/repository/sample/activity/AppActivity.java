@@ -26,8 +26,6 @@ import java.util.List;
  * @author fabio.lee
  */
 public class AppActivity extends Activity {
-    private Repository mRepository;
-
     private Handler mAppLocalHandler;
     private Handler mAppRemoteHandler;
 
@@ -39,24 +37,17 @@ public class AppActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.screen_common_linearlayout);
 
-        mRepository = Repository.with(this);
-
         mAppLocalHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                Apps mApps = mRepository.loadXmlLocalHandler(msg);
+                Apps mApps = Repository.with(AppActivity.this).loadXmlLocalHandler(msg);
                 populateMenu(mApps);
             }
         };
         mAppRemoteHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                mRepository.loadXmlRemoteHandler(
-                        Constant.Xml.APP.getUrl(),
-                        Constant.Xml.APP.getObject(),
-                        Constant.Xml.APP.getFileName(),
-                        mAppLocalHandler,
-                        msg);
+                Repository.with(AppActivity.this).loadXmlRemoteHandler(msg);
             }
         };
 
@@ -64,22 +55,20 @@ public class AppActivity extends Activity {
         mMainHorizontalLinearLayouts = new ArrayList<>();
 
         // Retaining an Object During a Configuration Change
-        mRepository.setCache((MemoryCache) this.getLastNonConfigurationInstance());
+        Repository.with(this).cache((MemoryCache) this.getLastNonConfigurationInstance());
 
         /**
          * Load xml from {@link Repository}.
          */
-        mRepository.loadXml(
-                Constant.Xml.APP.getUrl(),
-                Constant.Xml.APP.getObject(),
-                Constant.Xml.APP.getFileName(),
-                mAppLocalHandler,
-                mAppRemoteHandler);
+        Repository.with(this)
+                .loadXml(Constant.Xml.APP.getUrl(), Constant.Xml.APP.getObject())
+                .defaultCache(Constant.Xml.APP.getFileName())
+                .handle(mAppLocalHandler, mAppRemoteHandler);
     }
 
     @Override
     public Object onRetainNonConfigurationInstance() {
-        return mRepository.getCache();
+        return Repository.with(this).cache();
     }
 
     private void populateMenu(Apps mApps) {
@@ -111,7 +100,8 @@ public class AppActivity extends Activity {
                         /**
                          * Load image from {@link Repository}.
                          */
-                        mRepository.loadImage(mApp.getLogo().getSrc(), mMainMenuLogo);
+                        Repository.with(this)
+                                .loadImage(mApp.getLogo().getSrc(), mMainMenuLogo);
 
                         mMainMenuTitle = (TextView) mMainMenuButtonLogoTitleText.findViewById(R.id.main_menu_title);
                         mMainMenuTitle.setText(mApp.getLabel());

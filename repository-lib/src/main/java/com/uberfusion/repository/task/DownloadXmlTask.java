@@ -4,31 +4,36 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
+import com.uberfusion.repository.Request;
+import com.uberfusion.repository.Response;
 import com.uberfusion.repository.adapter.network.NetworkAdapter;
 
-public class DownloadXmlTask extends AsyncTask<String, Void, String[]> {
+public class DownloadXmlTask extends AsyncTask<Request, Void, Response[]> {
 	private Handler mHandler;
 	private NetworkAdapter mNetwork;
 
-	public DownloadXmlTask(Handler handler, NetworkAdapter network) {
+	public DownloadXmlTask(Handler mHandler, NetworkAdapter mNetwork) {
 		super();
-		mHandler = handler;
-		mNetwork = network;
+		this.mHandler = mHandler;
+		this.mNetwork = mNetwork;
 	}
 
 	@Override
-	protected String[] doInBackground(String... urls) {
-		String[] result = new String[urls.length];
-		for (int i = 0; i < urls.length; i++) {
-			result[i] = mNetwork.httpGetString(urls[i]);
+	protected Response[] doInBackground(Request... mRequests) {
+		Response[] mResult = new Response[mRequests.length];
+		for (int i = 0; i < mRequests.length; i++) {
+            mResult[i] = new Response.Builder()
+                    .request(mRequests[i])
+                    .resXml(mNetwork.httpGetString(mRequests[i].mUrl))
+                    .build();
 		}
-		return result;
+		return mResult;
 	}
 
 	@Override
-	protected void onPostExecute(String[] result) {
+	protected void onPostExecute(Response[] mResult) {
 		Message mMessage = new Message();
-		mMessage.obj = result;
+		mMessage.obj = mResult;
 		mHandler.sendMessage(mMessage);
 	}
 

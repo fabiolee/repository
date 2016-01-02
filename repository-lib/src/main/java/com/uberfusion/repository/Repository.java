@@ -19,57 +19,53 @@ import com.uberfusion.repository.task.SetCacheTask;
  * @author fabio.lee
  */
 public final class Repository {
-    private static volatile Repository singleton = null;
+    private static volatile Repository sSingleton = null;
 
     private final Context mContext;
     private final DbAdapter mDb;
     private final NetworkAdapter mNetwork;
     private final CacheLoader mCache;
 
-    private Repository(Context context) {
-        this.mContext = context;
-        this.mDb = new DbAdapter(context);
-        this.mNetwork = new NetworkAdapter(context);
-        this.mCache = new CacheLoader(context, mDb, mNetwork);
+    private Repository(Context mContext) {
+        this.mContext = mContext;
+        this.mDb = new DbAdapter(mContext);
+        this.mNetwork = new NetworkAdapter(mContext);
+        this.mCache = new CacheLoader(mContext, mDb, mNetwork);
     }
 
-    public MemoryCache getCache() {
+    public MemoryCache cache() {
         return mCache.getMemoryCache();
     }
 
-    public void setCache(MemoryCache cache) {
-        if (cache != null) {
-            mCache.setMemoryCache(cache);
+    public void cache(MemoryCache mMemoryCache) {
+        if (mMemoryCache != null) {
+            mCache.setMemoryCache(mMemoryCache);
         }
     }
 
-    public void loadImage(String url, ImageView imageView) {
-        mCache.setImage(url, imageView);
+    public void loadImage(String mUrl, ImageView mImageView) {
+        mCache.setImage(mUrl, mImageView);
     }
 
-    public <X> void loadXml(String url, Class<X> object, String fileName, Handler localHandler, Handler remoteHandler) {
-        if (mCache.isEmptyXml()) {
-            this.onDownloadXml(url, remoteHandler);
+    public <X> RequestBuilder loadXml(String mUrl, Class<X> mObject) {
+        return new RequestBuilder(this, mUrl, mObject);
+    }
+
+    public <X> X loadXmlLocalHandler(Message mMessage) {
+        return (X) mMessage.obj;
+    }
+
+    public <X> void loadXmlRemoteHandler(Message mMessage) {
+        final Response mResponse = ((Response[]) mMessage.obj)[0];
+        if (TextUtils.isEmpty(mResponse.mResXml)) {
+            onPreRefreshXml(mResponse.mRequest);
         } else {
-            this.onPreRefreshXml(url, object.getName(), fileName, localHandler);
-        }
-    }
-
-    public <X> X loadXmlLocalHandler(Message msg) {
-        return (X) msg.obj;
-    }
-
-    public <X> void loadXmlRemoteHandler(String url, Class<X> object, String fileName, final Handler localHandler, Message msg) {
-        String resXml = ((String[]) msg.obj)[0];
-        if (TextUtils.isEmpty(resXml)) {
-            onPreRefreshXml(url, object.getName(), fileName, localHandler);
-        } else {
-            String[][] mCacheTaskParam = new String[][] { { url, resXml, object.getClass().getName() }};
+            String[][] mCacheTaskParam = new String[][] { { mResponse.mRequest.mUrl, mResponse.mResXml, mResponse.mRequest.mObject.getName() }};
             Handler mCacheHandler = new Handler() {
                 @Override
-                public void handleMessage(Message msg) {
-                    BaseObject[] resObject = (BaseObject[]) msg.obj;
-                    onPostRefreshXml(localHandler, resObject[0]);
+                public void handleMessage(Message mMessage) {
+                    BaseObject[] resObject = (BaseObject[]) mMessage.obj;
+                    onPostRefreshXml(mResponse.mRequest.mLocalHandler, resObject[0]);
                 }
             };
             SetCacheTask mCacheTask = new SetCacheTask(mContext, mCache, mCacheHandler);
@@ -77,21 +73,55 @@ public final class Repository {
         }
     }
 
-    private void onDownloadXml(String url, Handler remoteHandler) {
-        DownloadXmlTask mDownloadTask = new DownloadXmlTask(remoteHandler, mNetwork);
-        mDownloadTask.execute(url);
+    /**
+     * The global default {@link Repository} instance.
+     */
+    public static Repository with(Context mContext) {
+        if (sSingleton == null) {
+            synchronized (Repository.class) {
+                if (sSingleton == null) {
+                    sSingleton = new Builder(mContext).build();
+                }
+            }
+        }
+        return sSingleton;
     }
 
-    private <X> void onPreRefreshXml(String url, String className, String fileName, final Handler localHandler) {
-        if (mCache.containsXml(url)) {
-            this.onPostRefreshXml(localHandler, mCache.getXml(url, className, fileName));
+    /**
+     * Do not allow outside package to access this method.
+     * @param mRequest the {@link Request} instance
+     */
+    void handleXml(Request mRequest) {
+        if (mCache.isEmptyXml()) {
+            this.onDownloadXml(mRequest);
         } else {
-            String[][] mCacheTaskParam = new String[][] { { url, className, fileName } };
+            this.onPreRefreshXml(mRequest);
+        }
+    }
+
+    private void onDownloadXml(Request mRequest) {
+        DownloadXmlTask mDownloadTask = new DownloadXmlTask(mRequest.mRemoteHandler, mNetwork);
+        mDownloadTask.execute(mRequest);
+    }
+
+    private <X> void onPostRefreshXml(Handler mLocalHandler, X mObject) {
+        if (mObject != null) {
+            Message mMessage = new Message();
+            mMessage.obj = mObject;
+            mLocalHandler.sendMessage(mMessage);
+        }
+    }
+
+    private <X> void onPreRefreshXml(final Request mRequest) {
+        if (mCache.containsXml(mRequest.mUrl)) {
+            this.onPostRefreshXml(mRequest.mLocalHandler, mCache.getXml(mRequest.mUrl, mRequest.mObject.getName(), mRequest.mFileName));
+        } else {
+            String[][] mCacheTaskParam = new String[][] { { mRequest.mUrl, mRequest.mObject.getName(), mRequest.mFileName } };
             Handler mCacheHandler = new Handler() {
                 @Override
-                public void handleMessage(Message msg) {
-                    BaseObject[] resObject = (BaseObject[]) msg.obj;
-                    onPostRefreshXml(localHandler, resObject[0]);
+                public void handleMessage(Message mMessage) {
+                    BaseObject[] resObject = (BaseObject[]) mMessage.obj;
+                    onPostRefreshXml(mRequest.mLocalHandler, resObject[0]);
                 }
             };
             GetCacheTask mCacheTask = new GetCacheTask(mCache, mCacheHandler);
@@ -99,30 +129,22 @@ public final class Repository {
         }
     }
 
-    private <X> void onPostRefreshXml(Handler localHandler, X object) {
-        if (object != null) {
-            Message mMessage = new Message();
-            mMessage.obj = object;
-            localHandler.sendMessage(mMessage);
-        }
-    }
-
     /**
      * This instance is equal to all instances of {@link Repository} that have equal attribute values.
-     * @return {@code true} if {@code this} is equal to {@code another} instance
+     * @return {@code true} if {@code this} is equal to {@code mAnother} instance
      */
     @Override
-    public boolean equals(Object another) {
-        return (this == another) ||
-                (another instanceof Repository && this.equalTo((Repository) another));
+    public boolean equals(Object mAnother) {
+        return (this == mAnother) ||
+                (mAnother instanceof Repository && this.equalsTo((Repository) mAnother));
     }
 
-    private boolean equalTo(Repository another) {
-        return mContext.equals(another.mContext);
+    private boolean equalsTo(Repository mAnother) {
+        return mContext.equals(mAnother.mContext);
     }
 
     /**
-     * Computes a hash code from attributes: {@link Context}.
+     * Computes a hash code from attributes: {@code mContext}.
      * @return hashCode value
      */
     @Override
@@ -144,34 +166,20 @@ public final class Repository {
     }
 
     /**
-     * The global default {@link Repository} instance.
-     */
-    public static Repository with(Context context) {
-        if (singleton == null) {
-            synchronized (Repository.class) {
-                if (singleton == null) {
-                    singleton = new Builder(context).build();
-                }
-            }
-        }
-        return singleton;
-    }
-
-    /**
      * Builds instances of type {@link Repository}.
      * Initialize attributes and then invoke the {@link #build()} method to create an immutable instance.
      */
     private static final class Builder {
-        private final Context context;
+        private final Context mContext;
 
         /**
          * Start building a new {@link Repository} instance.
          */
-        private Builder(Context context) {
-            if (context == null) {
+        private Builder(Context mContext) {
+            if (mContext == null) {
                 throw new IllegalArgumentException("Context must not be null.");
             }
-            this.context = context.getApplicationContext();
+            this.mContext = mContext.getApplicationContext();
         }
 
         /**
@@ -179,8 +187,8 @@ public final class Repository {
          * @return An immutable instance of {@link Repository}
          */
         private Repository build() {
-            Context context = this.context;
-            return new Repository(context);
+            Context mContext = this.mContext;
+            return new Repository(mContext);
         }
     }
 }
