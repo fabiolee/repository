@@ -1,18 +1,9 @@
 package com.fabiolee.repository.sample.util;
 
-import com.fabiolee.repository.sample.object.xml.app.Apps;
-
 /**
  * @author fabio.lee
  */
 public final class Constant {
-    /**
-     * File Name
-     */
-    public static final class FileName {
-        public static final String XML_APP = "app.xml";
-    }
-
     /**
      * Key
      */
@@ -27,41 +18,5 @@ public final class Constant {
         public static final String LOGO = "logo";
         public static final String SRC = "src";
         public static final String WIDTH = "width";
-    }
-
-    /**
-     * Url
-     */
-    public static final class Url {
-        public static final String XML_APP = "https://raw.githubusercontent.com/fabiolee/repository/master/sample-app/src/main/assets/app.xml";
-    }
-
-    /**
-     * Xml
-     */
-    public enum Xml {
-        APP(Url.XML_APP, Apps.class, FileName.XML_APP);
-
-        private final String url;
-        private final Class<?> object;
-        private final String fileName;
-
-        Xml(String url, Class<?> object, String fileName) {
-            this.url = url;
-            this.object = object;
-            this.fileName = fileName;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public Class<?> getObject() {
-            return object;
-        }
-
-        public String getFileName() {
-            return fileName;
-        }
     }
 }

@@ -25,7 +25,7 @@
     <app label="Music™ Play" desc="Download &amp; play unlimited music in this must-have app" href="http://m.live.my/v3/page/store/product?lang=en&amp;storeSubCat=23369">
         <logo src="http://www.flydart.net/images/blue.png" width="162" height="114"/>
     </app>
-    <app label="Store Online" desc="The convenience of shopping on-the-go with a 24-hour FREE delivery at your fingertips!" href="http://fabiolee.com">
+    <app label="Store Online" desc="The convenience of shopping on-the-go with a 24-hour delivery at your fingertips!" href="http://fabiolee.com">
         <logo src="http://www.flydart.net/images/yellow.png" width="162" height="114"/>
     </app>
 </apps>

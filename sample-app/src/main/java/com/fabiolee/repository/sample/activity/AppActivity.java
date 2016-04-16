@@ -15,7 +15,6 @@ import com.fabiolee.repository.object.xml.Callback;
 import com.fabiolee.repository.sample.R;
 import com.fabiolee.repository.sample.object.xml.app.App;
 import com.fabiolee.repository.sample.object.xml.app.Apps;
-import com.fabiolee.repository.sample.util.Constant;
 import com.fabiolee.repository.sample.util.Util;
 
 import java.util.ArrayList;
@@ -25,8 +24,6 @@ import java.util.List;
  * @author fabio.lee
  */
 public class AppActivity extends Activity {
-    private Callback<Apps> mAppCallback;
-
     private LinearLayout mMainLinearLayout;
     private ArrayList<LinearLayout> mMainHorizontalLinearLayouts;
 
@@ -35,25 +32,24 @@ public class AppActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.screen_common_linearlayout);
 
-        mAppCallback = new Callback<Apps>() {
-            @Override
-            public void onResponse(Apps mObject) {
-                populateMenu(mObject);
-            }
-        };
-
         mMainLinearLayout = (LinearLayout) this.findViewById(R.id.main_linearlayout);
         mMainHorizontalLinearLayouts = new ArrayList<>();
 
         // Retaining an Object During a Configuration Change
         Repository.with(this).cache((MemoryCache) this.getLastNonConfigurationInstance());
 
+        Callback<Apps> mAppCallback = new Callback<Apps>() {
+            @Override
+            public void onResponse(Apps mObject) {
+                populateMenu(mObject);
+            }
+        };
         /**
          * Load xml from {@link Repository}.
          */
         Repository.with(this)
-                .loadXml(Constant.Xml.APP.getUrl(), Constant.Xml.APP.getObject())
-                .defaultCache(Constant.Xml.APP.getFileName())
+                .loadXml("https://raw.githubusercontent.com/fabiolee/repository/master/sample-app/src/main/assets/app.xml", Apps.class)
+                .defaultAsset("app.xml")
                 .callback(mAppCallback);
     }
 

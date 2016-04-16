@@ -21,14 +21,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
         
-        <ImageView
-            android:id="@+id/top_toggle"
-            android:layout_centerVertical="true"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:src="@drawable/menu"
-            android:visibility="gone" />
-        
     </RelativeLayout>
     
     <ImageView

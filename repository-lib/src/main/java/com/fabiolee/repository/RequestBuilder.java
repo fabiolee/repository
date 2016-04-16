@@ -22,7 +22,7 @@ public class RequestBuilder {
         this.mRequestBuilder = new Request.Builder(mUrl, mObject);
     }
 
-    public RequestBuilder defaultCache(String mFileName) {
+    public RequestBuilder defaultAsset(String mFileName) {
         mRequestBuilder.fileName(mFileName);
         return this;
     }

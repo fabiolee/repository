@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">repository</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_desc">A library that uses Repository Pattern with a strategy that, through a loader, picks different sources depending on certain conditions.\n\nFor example, when getting a data by id, the file cache will be selected if the user already exists in cache, otherwise the cloud will be queried to retrieve the data and later save it to the file cache.</string>
+
+    <string name="action_app">App</string>
 
     <!-- Message -->
     <string name="msg_layout_notfound">Layout not found.</string>
