@@ -1,6 +1,6 @@
 package com.fabiolee.repository;
 
-import android.os.Handler;
+import com.fabiolee.repository.object.xml.Callback;
 
 /**
  * @author fabio.lee
@@ -27,9 +27,8 @@ public class RequestBuilder {
         return this;
     }
 
-    public void handle(Handler mLocalHandler, Handler mRemoteHandler) {
-        Request mRequest = mRequestBuilder.localHandler(mLocalHandler)
-                .remoteHandler(mRemoteHandler)
+    public <X> void callback(Callback<X> mLocalCallback) {
+        Request mRequest = mRequestBuilder.localCallback(mLocalCallback)
                 .build();
         mRepository.handleXml(mRequest);
     }

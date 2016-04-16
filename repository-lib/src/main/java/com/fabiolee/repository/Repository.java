@@ -11,6 +11,7 @@ import com.fabiolee.repository.adapter.cache.MemoryCache;
 import com.fabiolee.repository.adapter.db.DbAdapter;
 import com.fabiolee.repository.adapter.network.NetworkAdapter;
 import com.fabiolee.repository.object.xml.BaseObject;
+import com.fabiolee.repository.object.xml.Callback;
 import com.fabiolee.repository.task.DownloadXmlTask;
 import com.fabiolee.repository.task.GetCacheTask;
 import com.fabiolee.repository.task.SetCacheTask;
@@ -25,12 +26,38 @@ public final class Repository {
     private final DbAdapter mDb;
     private final NetworkAdapter mNetwork;
     private final CacheLoader mCache;
+    private final Callback<Response[]> mRemoteCallback;
 
-    private Repository(Context mContext) {
+    private Repository(final Context mContext) {
         this.mContext = mContext;
         this.mDb = new DbAdapter(mContext);
         this.mNetwork = new NetworkAdapter(mContext);
         this.mCache = new CacheLoader(mContext, mDb, mNetwork);
+        this.mRemoteCallback = new Callback<Response[]>() {
+            @Override
+            public void onResponse(Response[] mObject) {
+                final Response mResponse = mObject[0];
+                if (TextUtils.isEmpty(mResponse.mResXml)) {
+                    onPreRefreshXml(mResponse.mRequest);
+                } else {
+                    String[][] mCacheTaskParam = new String[][]{{mResponse.mRequest.mUrl, mResponse.mResXml, mResponse.mRequest.mObject.getName()}};
+                    Handler mCacheHandler = new Handler() {
+                        @Override
+                        public void handleMessage(Message mMessage) {
+                            BaseObject[] resObject = (BaseObject[]) mMessage.obj;
+                            if (resObject[0] == null) {
+                                // If fail to convert resXml to resObject from remote version, try to use local version.
+                                onPreRefreshXml(mResponse.mRequest);
+                            } else {
+                                onPostRefreshXml(mResponse.mRequest.mLocalCallback, resObject[0]);
+                            }
+                        }
+                    };
+                    SetCacheTask mCacheTask = new SetCacheTask(mContext, mCache, mCacheHandler);
+                    mCacheTask.execute(mCacheTaskParam);
+                }
+            }
+        };
     }
 
     public MemoryCache cache() {
@@ -49,28 +76,6 @@ public final class Repository {
 
     public <X> RequestBuilder loadXml(String mUrl, Class<X> mObject) {
         return new RequestBuilder(this, mUrl, mObject);
-    }
-
-    public <X> X loadXmlLocalHandler(Message mMessage) {
-        return (X) mMessage.obj;
-    }
-
-    public <X> void loadXmlRemoteHandler(Message mMessage) {
-        final Response mResponse = ((Response[]) mMessage.obj)[0];
-        if (TextUtils.isEmpty(mResponse.mResXml)) {
-            onPreRefreshXml(mResponse.mRequest);
-        } else {
-            String[][] mCacheTaskParam = new String[][]{{mResponse.mRequest.mUrl, mResponse.mResXml, mResponse.mRequest.mObject.getName()}};
-            Handler mCacheHandler = new Handler() {
-                @Override
-                public void handleMessage(Message mMessage) {
-                    BaseObject[] resObject = (BaseObject[]) mMessage.obj;
-                    onPostRefreshXml(mResponse.mRequest.mLocalHandler, resObject[0]);
-                }
-            };
-            SetCacheTask mCacheTask = new SetCacheTask(mContext, mCache, mCacheHandler);
-            mCacheTask.execute(mCacheTaskParam);
-        }
     }
 
     /**
@@ -101,28 +106,26 @@ public final class Repository {
     }
 
     private void onDownloadXml(Request mRequest) {
-        DownloadXmlTask mDownloadTask = new DownloadXmlTask(mRequest.mRemoteHandler, mNetwork);
+        DownloadXmlTask mDownloadTask = new DownloadXmlTask(mRemoteCallback, mNetwork);
         mDownloadTask.execute(mRequest);
     }
 
-    private <X> void onPostRefreshXml(Handler mLocalHandler, X mObject) {
+    private <X> void onPostRefreshXml(Callback<X> mLocalCallback, X mObject) {
         if (mObject != null) {
-            Message mMessage = new Message();
-            mMessage.obj = mObject;
-            mLocalHandler.sendMessage(mMessage);
+            mLocalCallback.onResponse(mObject);
         }
     }
 
     private <X> void onPreRefreshXml(final Request mRequest) {
         if (mCache.containsXml(mRequest.mUrl)) {
-            this.onPostRefreshXml(mRequest.mLocalHandler, mCache.getXml(mRequest.mUrl, mRequest.mObject.getName(), mRequest.mFileName));
+            this.onPostRefreshXml(mRequest.mLocalCallback, mCache.getXml(mRequest.mUrl, mRequest.mObject.getName(), mRequest.mFileName));
         } else {
             String[][] mCacheTaskParam = new String[][]{{mRequest.mUrl, mRequest.mObject.getName(), mRequest.mFileName}};
             Handler mCacheHandler = new Handler() {
                 @Override
                 public void handleMessage(Message mMessage) {
                     BaseObject[] resObject = (BaseObject[]) mMessage.obj;
-                    onPostRefreshXml(mRequest.mLocalHandler, resObject[0]);
+                    onPostRefreshXml(mRequest.mLocalCallback, resObject[0]);
                 }
             };
             GetCacheTask mCacheTask = new GetCacheTask(mCache, mCacheHandler);

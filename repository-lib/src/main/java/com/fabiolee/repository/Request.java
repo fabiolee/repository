@@ -1,7 +1,8 @@
 package com.fabiolee.repository;
 
-import android.os.Handler;
 import android.text.TextUtils;
+
+import com.fabiolee.repository.object.xml.Callback;
 
 /**
  * @author fabio.lee
@@ -10,15 +11,13 @@ public final class Request {
     public final String mUrl;
     public final Class<?> mObject;
     public final String mFileName;
-    public final Handler mLocalHandler;
-    public final Handler mRemoteHandler;
+    public final Callback mLocalCallback;
 
-    private <X> Request(String mUrl, Class<X> mObject, String mFileName, Handler mLocalHandler, Handler mRemoteHandler) {
+    private <X> Request(String mUrl, Class<X> mObject, String mFileName, Callback mLocalCallback) {
         this.mUrl = mUrl;
         this.mObject = mObject;
         this.mFileName = mFileName;
-        this.mLocalHandler = mLocalHandler;
-        this.mRemoteHandler = mRemoteHandler;
+        this.mLocalCallback = mLocalCallback;
     }
 
     /**
@@ -36,12 +35,11 @@ public final class Request {
         return mUrl.equals(mAnother.mUrl)
                 && mObject.equals(mAnother.mObject)
                 && mFileName.equals(mAnother.mFileName)
-                && mLocalHandler.equals(mAnother.mLocalHandler)
-                && mRemoteHandler.equals(mAnother.mRemoteHandler);
+                && mLocalCallback.equals(mAnother.mLocalCallback);
     }
 
     /**
-     * Computes a hash code from attributes: {@code mUrl}, {@code mObject}, {@code mFileName}, {@code mLocalHandler}, {@code mRemoteHandler}.
+     * Computes a hash code from attributes: {@code mUrl}, {@code mObject}, {@code mFileName}, {@code mLocalCallback}.
      *
      * @return hashCode value
      */
@@ -51,8 +49,7 @@ public final class Request {
         h = h * 17 + mUrl.hashCode();
         h = h * 17 + mObject.hashCode();
         h = h * 17 + mFileName.hashCode();
-        h = h * 17 + mLocalHandler.hashCode();
-        h = h * 17 + mRemoteHandler.hashCode();
+        h = h * 17 + mLocalCallback.hashCode();
         return h;
     }
 
@@ -67,8 +64,7 @@ public final class Request {
                 + "url=" + mUrl
                 + ", object=" + mObject
                 + ", fileName=" + mFileName
-                + ", localHandler=" + mLocalHandler
-                + ", remoteHandler=" + mRemoteHandler
+                + ", localCallback=" + mLocalCallback
                 + "}";
     }
 
@@ -76,8 +72,7 @@ public final class Request {
         private String mUrl;
         private Class<?> mObject;
         private String mFileName;
-        private Handler mLocalHandler;
-        private Handler mRemoteHandler;
+        private Callback<?> mLocalCallback;
 
         /**
          * Do not allow outside package to access this method.
@@ -115,24 +110,16 @@ public final class Request {
             return this;
         }
 
-        public Builder localHandler(Handler mLocalHandler) {
-            if (mLocalHandler == null) {
-                throw new IllegalArgumentException("local handler may not be null.");
+        public <X> Builder localCallback(Callback<X> mLocalCallback) {
+            if (mLocalCallback == null) {
+                throw new IllegalArgumentException("local callback may not be null.");
             }
-            this.mLocalHandler = mLocalHandler;
-            return this;
-        }
-
-        public Builder remoteHandler(Handler mRemoteHandler) {
-            if (mRemoteHandler == null) {
-                throw new IllegalArgumentException("remote handler may not be null.");
-            }
-            this.mRemoteHandler = mRemoteHandler;
+            this.mLocalCallback = mLocalCallback;
             return this;
         }
 
         public Request build() {
-            return new Request(mUrl, mObject, mFileName, mLocalHandler, mRemoteHandler);
+            return new Request(mUrl, mObject, mFileName, mLocalCallback);
         }
     }
 }

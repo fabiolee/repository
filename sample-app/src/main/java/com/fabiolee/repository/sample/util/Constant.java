@@ -33,8 +33,7 @@ public final class Constant {
      * Url
      */
     public static final class Url {
-        public static final String BASE = "http://fabiolee.com";
-        public static final String XML_APP = BASE + "/shared/ocs-moba-xml/app/app.xml";
+        public static final String XML_APP = "https://raw.githubusercontent.com/fabiolee/repository/master/sample-app/src/main/assets/app.xml";
     }
 
     /**

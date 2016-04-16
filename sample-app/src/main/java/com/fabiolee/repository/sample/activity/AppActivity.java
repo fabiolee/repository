@@ -2,8 +2,6 @@ package com.fabiolee.repository.sample.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +11,7 @@ import android.widget.TextView;
 
 import com.fabiolee.repository.Repository;
 import com.fabiolee.repository.adapter.cache.MemoryCache;
+import com.fabiolee.repository.object.xml.Callback;
 import com.fabiolee.repository.sample.R;
 import com.fabiolee.repository.sample.object.xml.app.App;
 import com.fabiolee.repository.sample.object.xml.app.Apps;
@@ -26,8 +25,7 @@ import java.util.List;
  * @author fabio.lee
  */
 public class AppActivity extends Activity {
-    private Handler mAppLocalHandler;
-    private Handler mAppRemoteHandler;
+    private Callback<Apps> mAppCallback;
 
     private LinearLayout mMainLinearLayout;
     private ArrayList<LinearLayout> mMainHorizontalLinearLayouts;
@@ -37,17 +35,10 @@ public class AppActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.screen_common_linearlayout);
 
-        mAppLocalHandler = new Handler() {
+        mAppCallback = new Callback<Apps>() {
             @Override
-            public void handleMessage(Message msg) {
-                Apps mApps = Repository.with(AppActivity.this).loadXmlLocalHandler(msg);
-                populateMenu(mApps);
-            }
-        };
-        mAppRemoteHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                Repository.with(AppActivity.this).loadXmlRemoteHandler(msg);
+            public void onResponse(Apps mObject) {
+                populateMenu(mObject);
             }
         };
 
@@ -63,7 +54,7 @@ public class AppActivity extends Activity {
         Repository.with(this)
                 .loadXml(Constant.Xml.APP.getUrl(), Constant.Xml.APP.getObject())
                 .defaultCache(Constant.Xml.APP.getFileName())
-                .handle(mAppLocalHandler, mAppRemoteHandler);
+                .callback(mAppCallback);
     }
 
     @Override

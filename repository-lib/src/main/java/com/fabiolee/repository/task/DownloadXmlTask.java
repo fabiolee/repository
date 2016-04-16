@@ -1,20 +1,19 @@
 package com.fabiolee.repository.task;
 
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 
 import com.fabiolee.repository.Request;
 import com.fabiolee.repository.Response;
 import com.fabiolee.repository.adapter.network.NetworkAdapter;
+import com.fabiolee.repository.object.xml.Callback;
 
 public class DownloadXmlTask extends AsyncTask<Request, Void, Response[]> {
-    private Handler mHandler;
+    private Callback<Response[]> mRemoteCallback;
     private NetworkAdapter mNetwork;
 
-    public DownloadXmlTask(Handler mHandler, NetworkAdapter mNetwork) {
+    public DownloadXmlTask(Callback<Response[]> mRemoteCallback, NetworkAdapter mNetwork) {
         super();
-        this.mHandler = mHandler;
+        this.mRemoteCallback = mRemoteCallback;
         this.mNetwork = mNetwork;
     }
 
@@ -32,9 +31,7 @@ public class DownloadXmlTask extends AsyncTask<Request, Void, Response[]> {
 
     @Override
     protected void onPostExecute(Response[] mResult) {
-        Message mMessage = new Message();
-        mMessage.obj = mResult;
-        mHandler.sendMessage(mMessage);
+        mRemoteCallback.onResponse(mResult);
     }
 
     @Override
