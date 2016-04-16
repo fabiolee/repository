@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <banner>
 
-    <screen name="NotInUse" href="http://www.uberfusion.com.my/PhonesDevices/Samsung_GALAXY_Ace_Plus.do">
-        <horizontal_image src="http://www.uberfusion.com.my/shared/ocs-moba-xml/banner/images/JJI_1280x128.jpg" width="1280" height="128"/>
-        <vertical_image src="http://www.uberfusion.com.my/shared/ocs-moba-xml/banner/images/JJI_800x80.jpg" width="800" height="80"/>
+    <screen name="NotInUse" href="http://fabiolee.com/PhonesDevices/Samsung_GALAXY_Ace_Plus.do">
+        <horizontal_image src="http://fabiolee.com/shared/ocs-moba-xml/banner/images/JJI_1280x128.jpg" width="1280" height="128"/>
+        <vertical_image src="http://fabiolee.com/shared/ocs-moba-xml/banner/images/JJI_800x80.jpg" width="800" height="80"/>
     </screen>
 
 </banner>
