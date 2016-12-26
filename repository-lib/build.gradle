@@ -1,15 +1,39 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'repository'
+
+    publishedGroupId = 'com.fabiolee'
+    libraryName = 'repository'
+    artifact = 'repository'
+
+    libraryDescription = 'A library that uses Repository Pattern for Android.'
+
+    siteUrl = 'https://github.com/fabiolee/repository'
+    gitUrl = 'https://github.com/fabiolee/repository.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'fabiolee'
+    developerName = 'Fabio Lee'
+    developerEmail = 'fabiolee59@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "25.0.2"
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -32,3 +56,6 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+apply from: '../installv1.gradle'
+apply from: '../bintrayv1.gradle'
