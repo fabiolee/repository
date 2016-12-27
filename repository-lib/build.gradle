@@ -6,7 +6,7 @@ ext {
 
     publishedGroupId = 'com.fabiolee'
     libraryName = 'repository'
-    artifact = 'repository'
+    artifact = 'repository-lib'
 
     libraryDescription = 'A library that uses Repository Pattern for Android.'
 
