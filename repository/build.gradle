@@ -4,16 +4,16 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'repository'
 
-    publishedGroupId = 'com.fabiolee'
+    publishedGroupId = 'com.fabiolee.repository'
     libraryName = 'repository'
-    artifact = 'repository-lib'
+    artifact = 'repository'
 
     libraryDescription = 'A library that uses Repository Pattern for Android.'
 
     siteUrl = 'https://github.com/fabiolee/repository'
     gitUrl = 'https://github.com/fabiolee/repository.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '0.0.1'
 
     developerId = 'fabiolee'
     developerName = 'Fabio Lee'
@@ -25,13 +25,13 @@ ext {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 23
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -54,7 +54,7 @@ dependencies {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 apply from: '../installv1.gradle'

@@ -1,1 +1,3 @@
-include ':repository-lib', ':sample-app'
+include ':repository', ':sample-app'
+
+rootProject.name = 'repository-root'

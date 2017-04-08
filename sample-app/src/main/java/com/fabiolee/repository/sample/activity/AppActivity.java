@@ -1,7 +1,8 @@
 package com.fabiolee.repository.sample.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -23,20 +24,22 @@ import java.util.List;
 /**
  * @author fabio.lee
  */
-public class AppActivity extends Activity {
+public class AppActivity extends AppCompatActivity {
     private LinearLayout mMainLinearLayout;
     private ArrayList<LinearLayout> mMainHorizontalLinearLayouts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.screen_common_linearlayout);
+        this.setContentView(R.layout.activity_app);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mMainLinearLayout = (LinearLayout) this.findViewById(R.id.main_linearlayout);
         mMainHorizontalLinearLayouts = new ArrayList<>();
 
         // Retaining an Object During a Configuration Change
-        Repository.with(this).cache((MemoryCache) this.getLastNonConfigurationInstance());
+        Repository.with(this).cache((MemoryCache) this.getLastCustomNonConfigurationInstance());
 
         Callback<Apps> mAppCallback = new Callback<Apps>() {
             @Override
@@ -54,7 +57,7 @@ public class AppActivity extends Activity {
     }
 
     @Override
-    public Object onRetainNonConfigurationInstance() {
+    public Object onRetainCustomNonConfigurationInstance() {
         return Repository.with(this).cache();
     }
 
