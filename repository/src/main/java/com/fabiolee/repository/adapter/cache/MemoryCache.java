@@ -1,15 +1,14 @@
 package com.fabiolee.repository.adapter.cache;
 
 import android.graphics.Bitmap;
-
-import com.fabiolee.repository.object.xml.BaseObject;
+import android.support.v4.util.ArrayMap;
 
 import java.lang.ref.SoftReference;
-import java.util.HashMap;
+import java.util.Map;
 
 public class MemoryCache {
-    private HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<>();
-    private HashMap<String, BaseObject> xmlCache = new HashMap<>();
+    private Map<String, SoftReference<Bitmap>> imageCache = new ArrayMap<>();
+    private Map<String, Object> xmlCache = new ArrayMap<>();
 
     public boolean containsXml(String id) {
         return xmlCache.containsKey(id);
@@ -22,8 +21,8 @@ public class MemoryCache {
         return ref.get();
     }
 
-    public BaseObject getXml(String id) {
-        return xmlCache.get(id);
+    public <X> X getXml(String id) {
+        return (X) xmlCache.get(id);
     }
 
     public boolean isEmptyImage() {
@@ -38,7 +37,7 @@ public class MemoryCache {
         imageCache.put(id, new SoftReference<>(bitmap));
     }
 
-    public void setXml(String id, BaseObject xmlObject) {
+    public <X> void setXml(String id, X xmlObject) {
         xmlCache.put(id, xmlObject);
     }
 

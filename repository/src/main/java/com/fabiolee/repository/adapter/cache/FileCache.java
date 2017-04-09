@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.fabiolee.repository.adapter.db.DbAdapter;
 import com.fabiolee.repository.object.db.DbCache;
-import com.fabiolee.repository.object.xml.BaseObject;
 import com.fabiolee.repository.util.Constant;
 import com.fabiolee.repository.util.Util;
 
@@ -51,10 +50,10 @@ public class FileCache {
         return new File(cacheDir, filename);
     }
 
-    public BaseObject getXml(String id) {
+    public <X> X getXml(String id) {
         String whereClause = Constant.Key.MODULE + "=?";
         String[] whereArgs = new String[]{id};
-        BaseObject xmlObject = null;
+        X xmlObject = null;
 
         Cursor cursor = null;
         String data = null;
@@ -83,11 +82,10 @@ public class FileCache {
 
         if (!TextUtils.isEmpty(data) && !TextUtils.isEmpty(className) && !TextUtils.isEmpty(date)) {
             try {
-                xmlObject = Util.convertXmlToObject(data, (Class<? extends BaseObject>) Class.forName(className));
+                xmlObject = Util.convertXmlToObject(data, (Class<X>) Class.forName(className));
             } catch (ClassNotFoundException e) {
                 String errorMessage = e.getMessage();
                 Log.e(LOG_TAG, errorMessage);
-                Util.showErrorNotification(mContext, errorMessage);
                 throw new AssertionError(e);
             }
 
@@ -106,7 +104,7 @@ public class FileCache {
                 SimpleDateFormat formatter12 = new SimpleDateFormat(Constant.Format.DATETIME12, Locale.ENGLISH);
                 formatter12.setTimeZone(TimeZone.getDefault());
                 String localDate = formatter12.format(d);
-                xmlObject.setLastUpdateDate(localDate);
+                //xmlObject.setLastUpdateDate(localDate);
             }
         }
 

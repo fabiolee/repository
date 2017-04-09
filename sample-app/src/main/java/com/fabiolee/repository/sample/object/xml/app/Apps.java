@@ -1,6 +1,5 @@
 package com.fabiolee.repository.sample.object.xml.app;
 
-import com.fabiolee.repository.object.xml.BaseObject;
 import com.fabiolee.repository.sample.util.Constant;
 
 import org.simpleframework.xml.ElementList;
@@ -9,7 +8,7 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 @Root(name = Constant.Key.APPS, strict = false)
-public class Apps extends BaseObject {
+public class Apps {
     @ElementList(name = Constant.Key.APP, inline = true, required = false)
     private List<App> apps;
 

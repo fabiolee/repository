@@ -1,13 +1,12 @@
 package com.fabiolee.repository.sample.object.xml.app;
 
-import com.fabiolee.repository.object.xml.BaseObject;
 import com.fabiolee.repository.sample.util.Constant;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 @Root(name = Constant.Key.LOGO, strict = false)
-public class Logo extends BaseObject {
+public class Logo {
     @Attribute(name = Constant.Key.SRC)
     private String src;
 

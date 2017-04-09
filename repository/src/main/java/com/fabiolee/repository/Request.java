@@ -7,13 +7,13 @@ import com.fabiolee.repository.object.xml.Callback;
 /**
  * @author fabio.lee
  */
-public final class Request {
+public final class Request<X> {
     public final String mUrl;
-    public final Class<?> mObject;
+    public final Class<X> mObject;
     public final String mFileName;
-    public final Callback mLocalCallback;
+    public final Callback<X> mLocalCallback;
 
-    private <X> Request(String mUrl, Class<X> mObject, String mFileName, Callback mLocalCallback) {
+    private Request(String mUrl, Class<X> mObject, String mFileName, Callback<X> mLocalCallback) {
         this.mUrl = mUrl;
         this.mObject = mObject;
         this.mFileName = mFileName;
@@ -68,25 +68,24 @@ public final class Request {
                 + "}";
     }
 
-    public static final class Builder {
+    public static final class Builder<X> {
         private String mUrl;
-        private Class<?> mObject;
+        private Class<X> mObject;
         private String mFileName;
-        private Callback<?> mLocalCallback;
+        private Callback<X> mLocalCallback;
 
         /**
          * Do not allow outside package to access this method.
          *
          * @param mUrl    the url to download xml
          * @param mObject the class of the object for xml conversion
-         * @param <X>     the object for xml conversion
          */
-        <X> Builder(String mUrl, Class<X> mObject) {
+        Builder(String mUrl, Class<X> mObject) {
             this.url(mUrl);
             this.object(mObject);
         }
 
-        public Builder url(String mUrl) {
+        public Builder<X> url(String mUrl) {
             if (TextUtils.isEmpty(mUrl)) {
                 throw new IllegalArgumentException("url may not be empty.");
             }
@@ -94,7 +93,7 @@ public final class Request {
             return this;
         }
 
-        public <X> Builder object(Class<X> mObject) {
+        public Builder<X> object(Class<X> mObject) {
             if (mObject == null) {
                 throw new IllegalArgumentException("object may not be null.");
             }
@@ -102,7 +101,7 @@ public final class Request {
             return this;
         }
 
-        public Builder fileName(String mFileName) {
+        public Builder<X> fileName(String mFileName) {
             if (TextUtils.isEmpty(mFileName)) {
                 throw new IllegalArgumentException("filename may not be empty.");
             }
@@ -110,7 +109,7 @@ public final class Request {
             return this;
         }
 
-        public <X> Builder localCallback(Callback<X> mLocalCallback) {
+        public Builder<X> localCallback(Callback<X> mLocalCallback) {
             if (mLocalCallback == null) {
                 throw new IllegalArgumentException("local callback may not be null.");
             }
@@ -119,7 +118,7 @@ public final class Request {
         }
 
         public Request build() {
-            return new Request(mUrl, mObject, mFileName, mLocalCallback);
+            return new Request<>(mUrl, mObject, mFileName, mLocalCallback);
         }
     }
 }

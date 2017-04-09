@@ -9,7 +9,6 @@ import com.fabiolee.repository.R;
 import com.fabiolee.repository.adapter.db.DbAdapter;
 import com.fabiolee.repository.adapter.network.NetworkAdapter;
 import com.fabiolee.repository.object.db.DbCache;
-import com.fabiolee.repository.object.xml.BaseObject;
 import com.fabiolee.repository.util.Util;
 
 import java.io.File;
@@ -46,8 +45,8 @@ public class CacheLoader {
         return memoryCache.containsXml(id);
     }
 
-    public BaseObject getXml(String id, String className, String fileName) {
-        BaseObject xmlObject = memoryCache.getXml(id);
+    public <X> X getXml(String id, String className, String fileName) {
+        X xmlObject = memoryCache.getXml(id);
         if (xmlObject == null) {
             xmlObject = fileCache.getXml(id);
 
@@ -83,12 +82,12 @@ public class CacheLoader {
         }
     }
 
-    public BaseObject setXml(final String id, final String xmlString, final Class<? extends BaseObject> c) {
-        BaseObject xmlObject = Util.convertXmlToObject(xmlString, c);
+    public <X> X setXml(final String id, final String xmlString, final Class<X> c) {
+        X xmlObject = Util.convertXmlToObject(xmlString, c);
         if (xmlObject != null) {
             DbCache dbObject = new DbCache(id, xmlString, c.getName());
             fileCache.setXml(dbObject);
-            xmlObject.setLastUpdateDate(dbObject.getDate());
+            //xmlObject.setLastUpdateDate(dbObject.getDate());
             memoryCache.setXml(id, xmlObject);
         }
         return xmlObject;

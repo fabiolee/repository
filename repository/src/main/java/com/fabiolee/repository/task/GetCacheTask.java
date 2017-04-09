@@ -5,9 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.fabiolee.repository.adapter.cache.CacheLoader;
-import com.fabiolee.repository.object.xml.BaseObject;
 
-public class GetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
+public class GetCacheTask<X> extends AsyncTask<String[], Void, X[]> {
     private CacheLoader mCache;
     private Handler mHandler;
 
@@ -18,8 +17,8 @@ public class GetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     }
 
     @Override
-    protected BaseObject[] doInBackground(String[]... param) {
-        BaseObject[] result = new BaseObject[param.length];
+    protected X[] doInBackground(String[]... param) {
+        X[] result = (X[]) new Object[param.length];
         for (int i = 0; i < param.length; i++) {
             if ((param[i] == null) || (param[i].length != 3)) {
                 result[i] = null;
@@ -32,7 +31,7 @@ public class GetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     }
 
     @Override
-    protected void onPostExecute(BaseObject[] result) {
+    protected void onPostExecute(X[] result) {
         Message mMessage = new Message();
         mMessage.obj = result;
         mHandler.sendMessage(mMessage);

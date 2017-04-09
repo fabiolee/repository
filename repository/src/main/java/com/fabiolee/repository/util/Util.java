@@ -1,12 +1,9 @@
 package com.fabiolee.repository.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
-
-import com.fabiolee.repository.object.xml.BaseObject;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -20,19 +17,18 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 
 public class Util {
     private static final String LOG_TAG = "Util";
 
-    public static BaseObject convertXmlToObject(String xml, Class<? extends BaseObject> c) {
+    public static <X> X convertXmlToObject(String xml, Class<X> c) {
         // Long process, use carefully.
         try {
             Serializer serializer = new Persister();
             StringReader sr = new StringReader(xml);
             return serializer.read(c, sr);
         } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage());
+            Log.e(LOG_TAG, String.format("convertXmlToObject(xml=[%s], c=[%s])", xml, c), e);
             return null;
         }
     }
@@ -47,7 +43,7 @@ public class Util {
                 os.write(bytes, 0, count);
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage());
+            Log.e(LOG_TAG, String.format("copyStream(is=[%s], os=[%s])", is, os), e);
         }
     }
 
@@ -76,7 +72,7 @@ public class Util {
             o2.inSampleSize = scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, e.getMessage());
+            Log.e(LOG_TAG, String.format("decodeFile(f=[%s])", f), e);
         }
         return null;
     }
@@ -101,44 +97,26 @@ public class Util {
     public static String outputStream(InputStream is) {
         final char[] buffer = new char[Constant.Value.STREAM_BUFFERSIZE];
         final StringBuilder out = new StringBuilder();
+        Reader in = null;
         try {
-            final Reader in = new InputStreamReader(is, "UTF-8");
+            in = new InputStreamReader(is, "UTF-8");
+            for (; ; ) {
+                int count = in.read(buffer, 0, Constant.Value.STREAM_BUFFERSIZE);
+                if (count == -1)
+                    break;
+                out.append(buffer, 0, count);
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, String.format("outputStream(is=[%s])", is), e);
+        } finally {
             try {
-                for (; ; ) {
-                    int count = in.read(buffer, 0, Constant.Value.STREAM_BUFFERSIZE);
-                    if (count == -1)
-                        break;
-                    out.append(buffer, 0, count);
+                if (in != null) {
+                    in.close();
                 }
             } catch (IOException e) {
-                Log.e(LOG_TAG, e.getMessage());
-            } finally {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.e(LOG_TAG, e.getMessage());
-                }
+                Log.e(LOG_TAG, "InputStream#close()", e);
             }
-        } catch (UnsupportedEncodingException e) {
-            Log.e(LOG_TAG, e.getMessage());
         }
         return out.toString();
-    }
-
-    public static void showErrorNotification(Context context, String text) {
-        // Disable error debug message when go LIVE
-        // PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-        // new Intent(), 0);
-        //
-        // Notification notification = new
-        // Notification(R.drawable.fabiolee_logo_24px, null,
-        // System.currentTimeMillis());
-        // notification.setLatestEventInfo(context,
-        // context.getText(R.string.lbl_error), text, contentIntent);
-        // notification.flags = Notification.FLAG_AUTO_CANCEL;
-        //
-        // NotificationManager mNM = (NotificationManager)
-        // context.getSystemService(Context.NOTIFICATION_SERVICE);
-        // mNM.notify(Constant.Id.NOTIFICATION_SYNC, notification);
     }
 }

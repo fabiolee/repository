@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_app:
-                Intent appIntent = new Intent(this, AppActivity.class);
+                Intent appIntent = new Intent(this, AppsActivity.class);
                 startActivity(appIntent);
                 return true;
             default:

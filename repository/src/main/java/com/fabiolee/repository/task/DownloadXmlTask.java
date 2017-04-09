@@ -8,13 +8,13 @@ import com.fabiolee.repository.adapter.network.NetworkAdapter;
 import com.fabiolee.repository.object.xml.Callback;
 
 public class DownloadXmlTask extends AsyncTask<Request, Void, Response[]> {
-    private Callback<Response[]> mRemoteCallback;
     private NetworkAdapter mNetwork;
+    private Callback<Response[]> mRemoteCallback;
 
-    public DownloadXmlTask(Callback<Response[]> mRemoteCallback, NetworkAdapter mNetwork) {
+    public DownloadXmlTask(NetworkAdapter mNetwork, Callback<Response[]> mRemoteCallback) {
         super();
-        this.mRemoteCallback = mRemoteCallback;
         this.mNetwork = mNetwork;
+        this.mRemoteCallback = mRemoteCallback;
     }
 
     @Override

@@ -7,10 +7,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.fabiolee.repository.adapter.cache.CacheLoader;
-import com.fabiolee.repository.object.xml.BaseObject;
-import com.fabiolee.repository.util.Util;
 
-public class SetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
+public class SetCacheTask<X> extends AsyncTask<String[], Void, X[]> {
     private final String LOG_TAG = getClass().getSimpleName();
 
     private Context mContext;
@@ -25,19 +23,18 @@ public class SetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     }
 
     @Override
-    protected BaseObject[] doInBackground(String[]... param) {
-        BaseObject[] result = new BaseObject[param.length];
+    protected X[] doInBackground(String[]... param) {
+        X[] result = (X[]) new Object[param.length];
         for (int i = 0; i < param.length; i++) {
             if ((param[i] == null) || (param[i].length != 3)) {
                 result[i] = null;
             } else {
                 // Set Xml, paramLength = 3
                 try {
-                    result[i] = mCache.setXml(param[i][0], param[i][1], (Class<? extends BaseObject>) Class.forName(param[i][2]));
+                    result[i] = mCache.setXml(param[i][0], param[i][1], (Class<X>) Class.forName(param[i][2]));
                 } catch (ClassNotFoundException e) {
                     String errorMessage = e.getMessage();
                     Log.e(LOG_TAG, errorMessage);
-                    Util.showErrorNotification(mContext, errorMessage);
                     throw new AssertionError(e);
                 }
             }
@@ -46,7 +43,7 @@ public class SetCacheTask extends AsyncTask<String[], Void, BaseObject[]> {
     }
 
     @Override
-    protected void onPostExecute(BaseObject[] result) {
+    protected void onPostExecute(X[] result) {
         Message mMessage = new Message();
         mMessage.obj = result;
         mHandler.sendMessage(mMessage);

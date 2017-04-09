@@ -24,6 +24,7 @@ dependencies {
     compile project(':repository')
     compile "com.android.support:appcompat-v7:$rootProject.ext.androidSupportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.androidSupportLibraryVersion"
+    compile "com.facebook.stetho:stetho:$rootProject.ext.facebookStethoVersion"
     testCompile 'junit:junit:4.12'
 }
 

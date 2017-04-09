@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * @author fabio.lee
  */
-public class AppActivity extends AppCompatActivity {
+public class AppsActivity extends AppCompatActivity {
     private LinearLayout mMainLinearLayout;
     private ArrayList<LinearLayout> mMainHorizontalLinearLayouts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_app);
+        this.setContentView(R.layout.activity_apps);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -109,7 +109,7 @@ public class AppActivity extends AppCompatActivity {
                             mMainMenuButtonLogoTitleText.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Util.openWebsite(AppActivity.this, url);
+                                    Util.openWebsite(AppsActivity.this, url);
                                 }
                             });
                         }

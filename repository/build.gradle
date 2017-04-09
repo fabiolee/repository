@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/fabiolee/repository'
     gitUrl = 'https://github.com/fabiolee/repository.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'fabiolee'
     developerName = 'Fabio Lee'
@@ -45,6 +45,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:support-v4:$rootProject.ext.androidSupportLibraryVersion"
     compile ('org.simpleframework:simple-xml:2.7.1') {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'

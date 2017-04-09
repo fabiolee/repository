@@ -1,6 +1,5 @@
 package com.fabiolee.repository.sample.object.xml.app;
 
-import com.fabiolee.repository.object.xml.BaseObject;
 import com.fabiolee.repository.sample.util.Constant;
 
 import org.simpleframework.xml.Attribute;
@@ -8,7 +7,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = Constant.Key.APP, strict = false)
-public class App extends BaseObject {
+public class App {
     @Attribute(name = Constant.Key.LABEL)
     private String label;
 

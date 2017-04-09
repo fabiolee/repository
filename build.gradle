@@ -16,4 +16,5 @@ ext {
     targetSdkVersion = 23
     // App dependencies
     androidSupportLibraryVersion = '25.3.1'
+    facebookStethoVersion = '1.4.2'
 }
