@@ -2,21 +2,13 @@ package com.fabiolee.repository.adapter.db;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.fabiolee.repository.object.xml.banner.Banner;
-import com.fabiolee.repository.object.xml.reward.PrivilegeLocation;
-import com.fabiolee.repository.object.xml.reward.PrivilegePartner;
-import com.fabiolee.repository.object.xml.store.StoreLocator;
 import com.fabiolee.repository.util.Constant;
-import com.fabiolee.repository.util.Util;
-
-import java.io.IOException;
 
 public class DbAdapter {
     private final int DATABASE_VERSION = 1;
@@ -46,56 +38,13 @@ public class DbAdapter {
             sb.append(", " + Constant.Key.DATE + " text not null");
             sb.append(");");
             db.execSQL(sb.toString());
-
-            this.insertCache(db, Constant.Url.XML_BANNER, "banner.xml", Banner.class.getName());
-            this.insertCache(db, Constant.Url.XML_REGION, "regions.xml", PrivilegeLocation.class.getName());
-            this.insertCache(db, Constant.Url.XML_MERCHANT, "merchants.xml", PrivilegePartner.class.getName());
-            this.insertCache(db, Constant.Url.XML_LOCATOR, "locator.xml", StoreLocator.class.getName());
-
-            sb = new StringBuffer();
-            sb.append("create table " + Constant.Database.TABLE_ERRORLOG + " (");
-            sb.append(Constant.Key.ROWID + " integer primary key autoincrement");
-            sb.append(", " + Constant.Key.VERSION + " text");
-            sb.append(", " + Constant.Key.TRANSACTIONID + " text not null");
-            sb.append(", " + Constant.Key.REFERENCEID + " text");
-            sb.append(", " + Constant.Key.ERRORCODE + " integer not null");
-            sb.append(", " + Constant.Key.ERRORMESSAGE + " text");
-            sb.append(", " + Constant.Key.ERRORCATEGORY + " text");
-            sb.append(", " + Constant.Key.DATE + " text not null");
-            sb.append(");");
-            db.execSQL(sb.toString());
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS " + Constant.Database.TABLE_CACHE);
-            db.execSQL("DROP TABLE IF EXISTS " + Constant.Database.TABLE_ERRORLOG);
             onCreate(db);
-        }
-
-        private void insertCache(SQLiteDatabase db, String module, String xmlFileName, String className) {
-            try {
-                AssetManager mAssetManager = mContext.getAssets();
-                String xmlData = Util.onPreXmlStringReplace(module, Util.outputStream(mAssetManager.open(xmlFileName)));
-                String date = Constant.Value.XML_CACHE_DATE;
-
-                Object[] bindArgs = new Object[]{module, xmlData, className, date};
-
-                StringBuilder sb = new StringBuilder();
-                sb.append("INSERT INTO " + Constant.Database.TABLE_CACHE + " (");
-                sb.append(Constant.Key.ROWID);
-                sb.append(", " + Constant.Key.MODULE);
-                sb.append(", " + Constant.Key.DATA);
-                sb.append(", " + Constant.Key.CLASS);
-                sb.append(", " + Constant.Key.DATE);
-                sb.append(") VALUES (NULL, ?, ?, ?, ?);");
-                db.execSQL(sb.toString(), bindArgs);
-
-                Log.d(LOG_TAG, "insertCache(db=[" + db + "], module=[" + module + "], xmlFileName=[" + xmlFileName + "], className=[" + className + "])");
-            } catch (IOException e) {
-                Log.e(LOG_TAG, e.getMessage());
-            }
         }
     }
 

@@ -1,22 +1,28 @@
-package com.fabiolee.repository.object.xml.reward;
+package com.fabiolee.repository.sample.object.xml;
 
-import com.fabiolee.repository.object.xml.BaseObject;
-import com.fabiolee.repository.util.Constant;
+import com.fabiolee.repository.sample.util.Constant;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
 
 @Root(name = Constant.Key.LOGO, strict = false)
-public class PrivilegeLogo extends BaseObject {
+public class Logo {
+    @Attribute(name = Constant.Key.SRC)
+    private String src;
+
     @Attribute(name = Constant.Key.WIDTH)
     private String width;
 
     @Attribute(name = Constant.Key.HEIGHT)
     private String height;
 
-    @Text
-    private String text;
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
 
     public String getWidth() {
         return width;
@@ -32,13 +38,5 @@ public class PrivilegeLogo extends BaseObject {
 
     public void setHeight(String height) {
         this.height = height;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 }

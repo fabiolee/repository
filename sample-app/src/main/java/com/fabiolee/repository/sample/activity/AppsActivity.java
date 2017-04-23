@@ -14,8 +14,8 @@ import com.fabiolee.repository.Repository;
 import com.fabiolee.repository.adapter.cache.MemoryCache;
 import com.fabiolee.repository.object.xml.Callback;
 import com.fabiolee.repository.sample.R;
-import com.fabiolee.repository.sample.object.xml.app.App;
-import com.fabiolee.repository.sample.object.xml.app.Apps;
+import com.fabiolee.repository.sample.object.xml.App;
+import com.fabiolee.repository.sample.object.xml.Apps;
 import com.fabiolee.repository.sample.util.Util;
 
 import java.util.ArrayList;

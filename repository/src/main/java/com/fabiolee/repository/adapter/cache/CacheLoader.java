@@ -168,7 +168,7 @@ public class CacheLoader {
         }
     }
 
-    public void clearCache() {
+    public void clear() {
         memoryCache.clear();
         fileCache.clear();
     }

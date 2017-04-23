@@ -85,15 +85,6 @@ public class Util {
         return new File(new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data"), packageName);
     }
 
-    public static String onPreXmlStringReplace(String id, String resXml) {
-        if (Constant.Url.XML_MERCHANT.equalsIgnoreCase(id)) {
-            resXml = resXml.replaceAll(" class", " " + Constant.Key.CLASS);
-            resXml = resXml.replaceAll("<strong>", "");
-            resXml = resXml.replaceAll("</strong>", "");
-        }
-        return resXml;
-    }
-
     public static String outputStream(InputStream is) {
         final char[] buffer = new char[Constant.Value.STREAM_BUFFERSIZE];
         final StringBuilder out = new StringBuilder();

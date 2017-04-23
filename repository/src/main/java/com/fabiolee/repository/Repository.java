@@ -43,6 +43,10 @@ public final class Repository {
         }
     }
 
+    public void clear() {
+        mCache.clear();
+    }
+
     public void loadImage(String mUrl, ImageView mImageView) {
         mCache.setImage(mUrl, mImageView);
     }

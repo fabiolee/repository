@@ -1,4 +1,4 @@
-package com.fabiolee.repository.sample.object.xml.app;
+package com.fabiolee.repository.sample.object.xml;
 
 import com.fabiolee.repository.sample.util.Constant;
 

@@ -2,30 +2,30 @@
 <apps>
 	
     <app label="Travelar" desc="Grab the best hotel deals from Travelar.com" href="http://travelar.com/">
-        <logo src="http://www.flydart.net/images/red.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/red.png" width="162" height="114"/>
     </app>
     <app label="iPhone 5s" desc="Forward thinking." href="http://fabiolee.com/ecomm_C/smartphone_main_product/default/iphone5s">
-        <logo src="http://www.flydart.net/images/blue.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/blue.png" width="162" height="114"/>
     </app>
     <app label="Prepaid Broadband" desc="Work or play - surf the internet for ONLY RM10!" href="http://fabiolee.com/ecomm_C/prepaid_internet/home/pre_broad_for_pc_and_tablet">
-        <logo src="http://www.flydart.net/images/red.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/red.png" width="162" height="114"/>
     </app>
     <app label="Samsung GALAXY Note 3" desc="Design Your Life." href="http://fabiolee.com/ecomm_C/smartphone_main_product/default/Samsung_GALAXY_Note_3">
-        <logo src="http://www.flydart.net/images/yellow.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/yellow.png" width="162" height="114"/>
     </app>
     <app label="Deezer" desc="Search, stream and share unlimited music no matter where you are." href="https://play.google.com/store/apps/details?id=deezer.android.app">
-        <logo src="http://www.flydart.net/images/green.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/green.png" width="162" height="114"/>
     </app>
     <app label="LIVE" desc="The one-stop place for the best in Services on your mobile" href="http://m.live.my">
-        <logo src="http://www.flydart.net/images/red.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/red.png" width="162" height="114"/>
     </app>
     <app label="My Free CallerTunes™" desc="FREE exclusively for My app users!" href="http://m.live.my/v3/page/store/subcategories?storeCat=23288&amp;showchild=y&amp;parentSub=29029">
-        <logo src="http://www.flydart.net/images/yellow.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/yellow.png" width="162" height="114"/>
     </app>
     <app label="Music™ Play" desc="Download &amp; play unlimited music in this must-have app" href="http://m.live.my/v3/page/store/product?lang=en&amp;storeSubCat=23369">
-        <logo src="http://www.flydart.net/images/blue.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/blue.png" width="162" height="114"/>
     </app>
     <app label="Store Online" desc="The convenience of shopping on-the-go with a 24-hour delivery at your fingertips!" href="http://fabiolee.com">
-        <logo src="http://www.flydart.net/images/yellow.png" width="162" height="114"/>
+        <logo src="https://raw.githubusercontent.com/fabiolee/repository/master/images/yellow.png" width="162" height="114"/>
     </app>
 </apps>
