@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.fabiolee.repository.BuildConfig;
 import com.fabiolee.repository.adapter.db.DbAdapter;
 import com.fabiolee.repository.object.db.DbCache;
 import com.fabiolee.repository.util.Constant;
@@ -33,12 +32,13 @@ public class FileCache {
         mDb = db;
         // Find the dir to save cached images
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            cacheDir = Util.getExternalStorageAppCacheDirectory(BuildConfig.APPLICATION_ID);
+            cacheDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         } else {
             cacheDir = context.getCacheDir();
         }
         if (!cacheDir.exists()) {
-            cacheDir.mkdirs();
+            boolean result = cacheDir.mkdirs();
+            Log.d(LOG_TAG, String.format("result=[%s]", result));
         }
     }
 

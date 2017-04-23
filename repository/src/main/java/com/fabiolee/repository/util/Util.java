@@ -2,7 +2,6 @@ package com.fabiolee.repository.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Log;
 
 import org.simpleframework.xml.Serializer;
@@ -75,14 +74,6 @@ public class Util {
             Log.e(LOG_TAG, String.format("decodeFile(f=[%s])", f), e);
         }
         return null;
-    }
-
-    public static File getExternalStorageAppCacheDirectory(String packageName) {
-        return new File(getExternalStorageAppDataDirectory(packageName), "cache");
-    }
-
-    private static File getExternalStorageAppDataDirectory(String packageName) {
-        return new File(new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data"), packageName);
     }
 
     public static String outputStream(InputStream is) {
