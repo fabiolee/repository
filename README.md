@@ -6,7 +6,7 @@ For example, when getting a data by id, the file cache will be selected if the u
 ## Download
 Download via Gradle:
 ```
-compile 'com.fabiolee.repository:repository:1.0.1'
+compile 'com.fabiolee.repository:repository:1.0.2'
 ```
 
 ## Usage
