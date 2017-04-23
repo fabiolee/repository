@@ -102,9 +102,12 @@ public class CacheLoader {
         File f = fileCache.getFile(url);
 
         // from SD cache
-        Bitmap b = Util.decodeFile(f);
-        if (b != null)
-            return b;
+        if (f.exists()) {
+            Bitmap b = Util.decodeFile(f);
+            if (b != null) {
+                return b;
+            }
+        }
 
         // from web
         return mNetwork.httpGetBitmap(url, f);
