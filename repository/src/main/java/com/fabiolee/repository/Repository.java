@@ -21,13 +21,11 @@ import com.fabiolee.repository.task.SetCacheTask;
 public final class Repository {
     private static volatile Repository sSingleton = null;
 
-    private final Context mContext;
     private final DbAdapter mDb;
     private final NetworkAdapter mNetwork;
     private final CacheLoader mCache;
 
     private Repository(final Context mContext) {
-        this.mContext = mContext;
         this.mDb = new DbAdapter(mContext);
         this.mNetwork = new NetworkAdapter(mContext);
         this.mCache = new CacheLoader(mContext, mDb, mNetwork);
@@ -103,7 +101,7 @@ public final class Repository {
                             }
                         }
                     };
-                    SetCacheTask<X> mCacheTask = new SetCacheTask<>(mContext, mCache, mCacheHandler);
+                    SetCacheTask<X> mCacheTask = new SetCacheTask<>(mCache, mCacheHandler);
                     mCacheTask.execute(mCacheTaskParam);
                 }
             }
@@ -132,45 +130,6 @@ public final class Repository {
             GetCacheTask<X> mCacheTask = new GetCacheTask<>(mCache, mCacheHandler);
             mCacheTask.execute(mCacheTaskParam);
         }
-    }
-
-    /**
-     * This instance is equal to all instances of {@link Repository} that have equal attribute values.
-     *
-     * @return {@code true} if {@code this} is equal to {@code mAnother} instance
-     */
-    @Override
-    public boolean equals(Object mAnother) {
-        return (this == mAnother) ||
-                (mAnother instanceof Repository && this.equalsTo((Repository) mAnother));
-    }
-
-    private boolean equalsTo(Repository mAnother) {
-        return mContext.equals(mAnother.mContext);
-    }
-
-    /**
-     * Computes a hash code from attributes: {@code mContext}.
-     *
-     * @return hashCode value
-     */
-    @Override
-    public int hashCode() {
-        int h = 31;
-        h = h * 17 + mContext.hashCode();
-        return h;
-    }
-
-    /**
-     * Prints the immutable value {@link Repository} with all non-generated and non-auxiliary attribute values.
-     *
-     * @return A string representation of the value
-     */
-    @Override
-    public String toString() {
-        return "Repository{"
-                + "context=" + mContext
-                + "}";
     }
 
     /**

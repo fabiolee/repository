@@ -1,6 +1,5 @@
 package com.fabiolee.repository.task;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -11,13 +10,11 @@ import com.fabiolee.repository.adapter.cache.CacheLoader;
 public class SetCacheTask<X> extends AsyncTask<String[], Void, X[]> {
     private final String LOG_TAG = getClass().getSimpleName();
 
-    private Context mContext;
     private CacheLoader mCache;
     private Handler mHandler;
 
-    public SetCacheTask(Context context, CacheLoader cache, Handler handler) {
+    public SetCacheTask(CacheLoader cache, Handler handler) {
         super();
-        mContext = context;
         mCache = cache;
         mHandler = handler;
     }
